@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+    <head>
+        <meta charset="utf-8">
+        <title>範例</title>
+       
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script>
+          $(function(){
+            var zip_json;
+            var request = $.ajax('zip_2_area.json', {dataType: "json"}),
+            chained = request.then(function(data) {
+                zip_json = data;
+            });
+            
+            chained.done(function(data) {
+            
+            //----- 當取得郵遞區號 ajax 後執行的動作 開始
+            $(".zip").each(function(k, v) {
+                var area = getObjects(zip_json, 'zip_code', $(this).text());
+                $(this).after(' ' + area.city + area.area + ' ');
+            })
+            
+            //-------當取得郵遞區號 ajax 後執行的動作 結束
+            });
+            
+          
+          })
+          
+          
+          //==== 查詢 obj 中其中包和特定值的子物件==============================
+          function getObjects(obj, key, val)
+          {
+              var newObj = false;
+              $.each(obj, function()
+              {
+                  var testObject = this;
+                  $.each(testObject, function(k, v)
+                  {
+      
+                      if (v.toString().trim() == val.toString().trim() && k == key)
+                      {
+      
+                          newObj = testObject;
+                      }
+                  });
+              });
+      
+              return newObj;
+          }
+        </script>
+    </head>
+    <body>
+    </body>
+    </html>
