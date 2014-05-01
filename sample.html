@@ -16,7 +16,7 @@
             chained.done(function(data) {
             
             //----- 要執行的程式擺這邊 開始
-            var zip_code = '100'; 這邊是你的郵遞區號
+            var zip_code = '100'; //這邊是你的郵遞區號
             var area = getObjects(zip_json, 'zip_code', zip_code); //第一個參數不要動,第二個參數也不要動,第三個參數是郵遞區號
             console.log(area.city); //取得縣市
             console.log(area.area); //取得區
